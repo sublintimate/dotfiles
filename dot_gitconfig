@@ -1,0 +1,23 @@
+[core]
+	autocrlf = false
+	excludesfile = ~/.gitignore_global
+	ignorecase = false
+	quotepath = false
+	sparsecheckout = true
+[alias]
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+[credential]
+	helper = manager
+[diff]
+	compactionHeuristic = true
+[merge]
+	ff = false
+[pull]
+	ff = only
+[rebase]
+	autostash = true
+[svn]
+	pushmergeinfo = true
+	rmdir = true
+[include]
+	path = ~/.gitconfig_local
