@@ -1,0 +1,47 @@
+scriptencoding utf-8
+
+if has("syntax")
+  " 構文ハイライトを有効にする
+  " (on: デフォルトの色設定, enable: 現在の色設定)
+  syntax enable
+
+  " 和字間隔のハイライトを有効にする
+  " augroup highlightIdegraphicSpace
+    " autocmd!
+    " autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=LightCyan
+    " autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+  " augroup END
+endif
+" 互換モードを無効にする
+set nocompatible
+
+" エンコード
+" set encoding=utf8
+" ファイルエンコード
+" set fileencoding=utf-8
+
+" バックスペースキーによる文字削除を有効にする
+" (indent: 行頭の空白, eol: ファイル終端, start: 挿入モード開始位置より以前の文字)
+set backspace=indent,eol,start
+
+" タイトルをウインドウ枠に表示する
+set title
+" 行番号を表示する
+set number
+" ルーラーを表示する
+set ruler
+" 入力中のコマンドをステータスに表示する
+set showcmd
+" ステータスラインを常に表示する
+set laststatus=2
+" 括弧入力時の対応する括弧を表示する
+set showmatch
+" 不可視文字を表示する
+set list
+" 表示する不可視文字
+" (trail: 行末のスペース, extends: 折り返し行末, precedes: 折り返し行頭)
+set listchars=tab:»\ ,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+
+" タブが対応する空白の数を指定する
+set tabstop=4
+
