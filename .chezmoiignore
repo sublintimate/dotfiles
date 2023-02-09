@@ -1,1 +1,4 @@
+{{- if eq .chezmoi.os "windows" }}
+.bashrc*
+{{- end }}
 README.md

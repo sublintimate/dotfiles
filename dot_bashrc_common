@@ -1,0 +1,68 @@
+# ~/.bashrc_common: executed by bash(1) for interactive shells.
+
+# ----------------------------------------------------------------
+# コマンド履歴
+# ----------------------------------------------------------------
+# シェル終了時のヒストリーファイル追記を無効化する
+shopt -u histappend
+
+# プロンプト表示前に実行するコマンド(コマンド履歴をファイルに書き出す)
+_prompt_command="history -n; history -w; history -c; history -r; ${_prompt_command}"
+
+# 指定したコマンドをプロンプトが表示される前に実行する
+if [[ "${PROMPT_COMMAND}" != *"${_prompt_command}"* ]]; then
+    export PROMPT_COMMAND="${_prompt_command}${PROMPT_COMMAND}"
+fi
+unset _prompt_command
+
+# コマンド実行履歴の制御(「:」区切り)
+# ignorespace: 空白文字で始まる行を保存しない
+# ignoredups : ひとつ前の履歴エントリと一致する行を保存しない
+# ignoreboth : ignorespace + ignoredepsの省略形
+# erasedups  : 現在の行と一致する履歴を保存前にすべて削除する ※コマンドが時系列に並ばなくなる
+export HISTCONTROL=ignoreboth
+
+# Glob で以下の正規表現を使用できるようにする
+# ?(pattern-list): パターン 0 回または 1 回の出現とマッチ
+# *(pattern-list): パターンの 0 回以上の出現とマッチ
+# *(pattern-list): パターンの 1 回以上の出現とマッチ
+# @(pattern-list): パターンの 1 回の出現とマッチ
+# !(pattern-list): パターンのいずれでもないものとマッチ
+shopt -s extglob
+
+# 履歴を保存しないコマンド(引数なしで使用した場合)(「|」区切り)
+_ignore_no_args_cmd=$'@(history)'
+# 履歴を保存しないコマンド(任意の引数で使用した場合)
+_ignore_any_args_cmd=$'@([fb]g|exit|l[sla]|pwd|d[fu]|uname|w|man)'
+
+# 指定したコマンドの履歴を保存しない
+_space_chars=$' \t'
+_ctrl_op_chars=$';\&|'
+_ignore_any_args_cmd="${_ignore_any_args_cmd}"$'?(+(['"${_space_chars}"$'])*([^'"${_ctrl_op_chars}"$']))'
+# _ignore_cmds=$'*(['"${_space_chars}"$'])@('"${_ignore_no_args_cmd}"$'|'"${_ignore_any_args_cmd}"$')*(['"${_space_chars}"$'])'
+_ignore_cmds=$'@('"${_ignore_no_args_cmd}"$'|'"${_ignore_any_args_cmd}"$')'
+_ignore_cmds=$'*(['"${_space_chars}"$'])'"${_ignore_cmds}"$'*(['"${_space_chars}"$'])'
+export HISTIGNORE="${_ignore_cmds}"'*(+(['"${_ctrl_op_chars}"$'])'"${_ignore_cmds}"')'
+unset _ignore_no_args_cmd
+unset _ignore_any_args_cmd
+unset _space_chars
+unset _ctrl_op_chars
+unset _ignore_cmds
+
+# ----------------------------------------------------------------
+# エイリアス
+# ----------------------------------------------------------------
+# コマンドの実行結果を色付きで表示する
+alias less='less -R'
+alias grep='grep --color'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# lsコマンドのエイリアスを使えるようにする
+alias ls='ls -F --color'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+# sudoコマンドでエイリアスを使えるようにする
+alias sudo='sudo '

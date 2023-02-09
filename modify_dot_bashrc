@@ -1,0 +1,16 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $prefix := "# >>> chezmoi modify >>>" -}}
+{{- $suffix := "# <<< chezmoi modify <<<" -}}
+{{- $regex  := print "(\\n\\n)?" $prefix "\\n[\\s\\S]*\\n" $suffix "\\n" -}}
+{{- $stdin  := .chezmoi.stdin | replaceAllRegex $regex "" -}}
+
+{{ print $stdin "\n\n" $prefix | trim }}
+# !! Contents within this block are managed by 'chezmoi apply' !!
+if [ -f ~/.bashrc_common ]; then
+    . ~/.bash_common
+fi
+
+if [ -f ~/.bashrc_local ]; then
+    . ~/.bash_local
+fi
+{{ $suffix }}
