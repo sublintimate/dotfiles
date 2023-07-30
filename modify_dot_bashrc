@@ -7,10 +7,10 @@
 {{ print $stdin "\n\n" $prefix | trim }}
 # !! Contents within this block are managed by 'chezmoi apply' !!
 if [ -f ~/.bashrc_common ]; then
-    . ~/.bash_common
+    . ~/.bashrc_common
 fi
 
 if [ -f ~/.bashrc_local ]; then
-    . ~/.bash_local
+    . ~/.bashrc_local
 fi
 {{ $suffix }}
