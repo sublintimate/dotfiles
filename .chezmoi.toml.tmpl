@@ -1,5 +1,5 @@
-{{- $git_user_name := promptStringOnce . "git_user_name" "Git username" -}}
-{{- $git_user_email := promptStringOnce . "git_user_email" "Git email address" -}}
+{{- $git_user_name := promptString "git_user_name" -}}
+{{- $git_user_email := promptString "git_user_email" -}}
 
 [data]
     git_user_name = {{ $git_user_name | quote }}
