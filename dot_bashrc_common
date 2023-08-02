@@ -11,7 +11,11 @@ export HISTFILESIZE=100000
 shopt -u histappend
 
 # プロンプト表示前に実行するコマンド(コマンド履歴をファイルに書き出す)
-_prompt_command="history -n; history -w; history -c; history -r; ${_prompt_command}"
+# http://yuzugosho.blog.fc2.com/blog-entry-8.html
+# erasedupsを使用する場合。ただし、プロンプト上で以前の履歴を変更すると、それも反映される
+# _prompt_command="history -n; history -w; history -c; history -r; ${_prompt_command}"
+# erasedupsを使用しない場合
+_prompt_command="history -a; history -c; history -r; ${_prompt_command}"
 
 # 指定したコマンドをプロンプトが表示される前に実行する
 if [[ "${PROMPT_COMMAND}" != *"${_prompt_command}"* ]]; then
