@@ -1,4 +1,6 @@
 {{- if eq .chezmoi.os "windows" }}
 .bashrc*
 {{- end }}
+install.ps1
+install.sh
 README.md
